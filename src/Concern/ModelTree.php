@@ -4,6 +4,7 @@ namespace SolutionForest\FilamentTree\Concern;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 use SolutionForest\FilamentTree\Concern\SupportTranslation;
 use SolutionForest\FilamentTree\Support\Utils;
@@ -49,7 +50,7 @@ trait ModelTree
         });
     }
 
-    public function children()
+    public function children(): HasMany
     {
         return $this->hasMany(static::class, $this->determineParentColumnName())->with('children')->orderBy($this->determineOrderColumnName());
     }
