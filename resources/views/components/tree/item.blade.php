@@ -60,7 +60,7 @@
         </div>
 
         @if (count($actions))
-            <div class="dd-nodrag ml-auto rtl:ml-0 rtl:mr-auto">
+            <div class="dd-nodrag ml-auto mr-4 rtl:ml-4 rtl:mr-auto">
                 <x-filament-tree::actions :actions="$actions" :record="$record" />
             </div>
         @endif
