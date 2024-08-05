@@ -45,6 +45,6 @@ const defaultOptions = {
 
 compile({
     ...defaultOptions,
-    entryPoints: ['./resources/js/plugin.js'],
-    outfile: './resources/dist/filament-tree.js',
-})
+    entryPoints: ['./resources/js/components/filament-tree-component.js'],
+    outfile: './resources/dist/components/filament-tree-component.js',
+});

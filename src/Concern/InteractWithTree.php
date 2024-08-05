@@ -128,6 +128,8 @@ trait InteractWithTree
                 ->title(__('filament-actions::edit.single.modal.actions.save.label'))
                 ->send();
 
+            // Reload data
+            $this->dispatch('refreshTree');
         }
 
         return ['reload' => $needReload];

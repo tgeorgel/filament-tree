@@ -2,14 +2,15 @@
 
 namespace SolutionForest\FilamentTree;
 
-use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Facades\FilamentView;
-use Illuminate\Database\Schema\Blueprint;
-use SolutionForest\FilamentTree\Macros\BlueprintMarcos;
+use Filament\Support\Assets\Css;
 use Spatie\LaravelPackageTools\Package;
+use Illuminate\Database\Schema\Blueprint;
+use Filament\Support\Facades\FilamentView;
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Assets\AlpineComponent;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use SolutionForest\FilamentTree\Macros\BlueprintMarcos;
 
 class FilamentTreeServiceProvider extends PackageServiceProvider
 {
@@ -39,13 +40,11 @@ class FilamentTreeServiceProvider extends PackageServiceProvider
     {
         FilamentAsset::register([
             Css::make('filament-tree-min', __DIR__ . '/../resources/dist/filament-tree.css'),
-            Js::make('filament-tree-min', __DIR__ . '/../resources/dist/filament-tree.js'),
         ], 'solution-forest/filament-tree');
         
-        FilamentView::registerRenderHook(
-            'panels::body.start',
-            fn (): string => "<script src=\"https://code.jquery.com/jquery-3.6.0.min.js\"></script>",
-        );
+        FilamentAsset::register([
+            AlpineComponent::make('filament-tree-component', __DIR__ . '/../resources/dist/components/filament-tree-component.js'),
+        ], 'solution-forest/filament-tree');
     }
 
     protected function registerBlueprintMacros()
