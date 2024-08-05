@@ -7,7 +7,7 @@ use Filament\Actions\Concerns\HasMountableArguments;
 use Filament\Actions\Concerns\InteractsWithRecord;
 use Filament\Actions\Contracts\Groupable;
 use Filament\Actions\Contracts\HasRecord;
-use Filament\Actions\MountableAction as BaseAction;
+use Filament\Actions\Action as BaseAction;
 use Filament\Actions\StaticAction;
 use Illuminate\Database\Eloquent\Model;
 use SolutionForest\FilamentTree\Concern\Actions\HasTree;
