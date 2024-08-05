@@ -355,6 +355,21 @@ public function getNodeCollapsedState(?\Illuminate\Database\Eloquent\Model $reco
 }
 ```
 
+#### Record Title
+To customize the ttile for each record in a tree page, you can use the `getTreeRecordTitle()` method in your tree page class. This method should return a string that represents the name of the icon you want to use for the record. For example:
+
+```php
+public function getTreeRecordTitle(?\Illuminate\Database\Eloquent\Model $record = null): string
+{
+    if (! $record) {
+        return '';
+    }
+    $id = $record->getKey();
+    $title = $record->{(method_exists($record, 'determineTitleColumnName') ? $record->determineTitleColumnName() : 'title')};
+    return "[{$id}] {$title}";
+}
+```
+
 ### Pages
 This plugin enables you to create tree pages in the admin panel. To create a tree page for a model, use the `make:filament-tree-page` command. For example, to create a tree page for the ProductCategory model, you can run:
 #### Create a Page
@@ -366,6 +381,50 @@ php artisan make:filament-tree-page ProductCategory --model=ProductCategory
 #### Actions, Widgets and Icon for each record
 Once you've created the tree page, you can customize the available actions, widgets, and icon for each record. You can use the same methods as for resource pages. See the [Resource Page](#resources)  for more information on how to customize actions, widgets, and icons.
 
+
+### Translation
+Suggest used with Spatie Translatable (https://filamentphp.com/plugins/filament-spatie-translatable) Plugin.
+1. Ensure your model already apply translatable setup. (Refence on https://spatie.be/docs/laravel-translatable/v6/installation-setup)
+```php
+use Filament\Actions\LocaleSwitcher;
+use SolutionForest\FilamentTree\Concern\ModelTree;
+use Spatie\Translatable\HasTranslations;
+
+class Category extends Model
+{
+    use HasTranslations;
+    use TreeModel;
+
+    protected $translatable = [
+        'title',
+    ];
+}
+```
+2. You need to add the necessary trait and `LocaleSwitcher` header action to your tree page:
+```php
+use App\Models\Category as TreePageModel;
+use SolutionForest\FilamentTree\Concern\TreeRecords\Translatable;
+use SolutionForest\FilamentTree\Pages\TreePage as BasePage;
+
+class Category extends BasePage
+{
+    use Translatable;
+
+    protected static string $model = TreePageModel::class;
+
+    public function getTranslatableLocales(): array
+    {
+        return ['en', 'fr'];
+    }
+
+    protected function getActions(): array
+    {
+        return [
+            LocaleSwitcher::make(),
+        ];
+    }
+}
+```
 
 
 ### Publishing Views
