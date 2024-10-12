@@ -59,11 +59,11 @@ class Utils
         $nodeGroups = collect($nodes)->groupBy(fn ($node) => $node[$parentKeyName])->sortKeys();
         foreach ($nodeGroups as $pk => $nodeGroup) {
             $pk = is_numeric($pk) ? intval($pk) : $pk;
-            if ( 
-                ($pk === $parentId) 
+            if (
+                ($pk === $parentId)
                 // Allow parentId is nullable or negative number
                 // https://github.com/solutionforest/filament-tree/issues/28
-                || (($pk === '' || $pk <= 0) && $parentId <= 0) 
+                || (($pk === '' || $pk <= 0) && $parentId <= 0)
             ) {
                 foreach ($nodeGroup as $node) {
                     $node = collect($node)->toArray();
